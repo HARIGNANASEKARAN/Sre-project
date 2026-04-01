@@ -1,0 +1,96 @@
+#!/bin/bash
+# sre_learnings.sh
+# Full Learnings from SRE Project 1
+
+echo "========================================="
+echo "       SRE Project - Key Learnings"
+echo "========================================="
+
+echo ""
+echo "1️⃣ Flask App & Prometheus Metrics"
+echo " - Use Flask app with host='0.0.0.0' inside Docker for container accessibility."
+echo " - Expose Prometheus metrics on a separate port (e.g., 8000) using start_http_server()."
+echo " - Increment counters in endpoints using prometheus_client.Counter."
+
+echo ""
+echo "2️⃣ Prometheus Configuration"
+echo " - scrape_interval controls how often metrics are collected."
+echo " - Targets must match the app's host/port inside Docker:"
+echo "   - Mac/Windows: host.docker.internal:8000"
+echo "   - Linux: localhost:8000"
+echo " - alerting section points Prometheus to Alertmanager containers."
+
+echo ""
+echo "3️⃣ Prometheus Alert Rules"
+echo " - Define rules in alerts.rules.yml."
+echo " - Example: increase(app_requests_total[1m]) > 5 triggers HighErrorRate."
+echo " - Always match metric names exactly and check scrape intervals."
+
+echo ""
+echo "4️⃣ Alertmanager Basics"
+echo " - alertmanager.yml defines receivers, routes, and global settings."
+echo " - Can use console receiver to log alerts to Prometheus UI for testing."
+echo " - Make sure container ports are mapped correctly (default: 9093)."
+
+echo ""
+echo "5️⃣ Docker Compose Tips"
+echo " - Use -d (detached) to run containers in background."
+echo " - Mount files carefully; host file path must match container destination type."
+echo " - Remove 'version' attribute (v3 is default)."
+echo " - Windows paths with spaces require quotes: './prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml'."
+
+echo ""
+echo "6️⃣ Grafana Dashboards"
+echo " - Dashboard → Add Panel → Run Query → Choose visualization → Apply."
+echo " - Use PromQL expressions like sum(rate(app_requests_total[5m])) for metrics."
+echo " - Refresh targets after triggering app endpoints to see metrics increase."
+
+echo ""
+echo "7️⃣ Docker & Networking Learnings"
+echo " - Use docker ps to verify running containers and ports."
+echo " - Stop/remove containers if ports conflict: docker stop/rm <container>."
+echo " - Use host.docker.internal for cross-container communication on Mac/Windows."
+
+echo ""
+echo "8️⃣ Git & GitHub Learnings"
+echo " - GitHub may return 403 if credentials are wrong."
+echo " - Use fine-grained Personal Access Token (PAT) with repo permissions."
+echo " - Set branch with 'git branch -M main' and push with PAT URL."
+
+echo ""
+echo "9️⃣ Handling Stuck PowerShell / Terminals"
+echo " - CTRL+C to interrupt commands."
+echo " - Use -d for detached Docker Compose to free terminal."
+echo " - CTRL+BREAK or Task Manager to force quit if frozen."
+echo " - Verify containers running with docker ps before retrying."
+
+echo ""
+echo "🔟 Monitoring & Debugging Tips"
+echo " - Prometheus targets → should show UP status."
+echo " - Trigger app endpoints to see metrics increasing."
+echo " - Check logs of containers (docker logs -f <container>) for startup messages."
+echo " - Short scrape intervals may cause alerts to fire too frequently; adjust accordingly."
+
+echo ""
+echo "1️⃣1️⃣ Docker Image Pull Issues"
+echo " - TLS handshake timeout may occur for large images."
+echo " - Retry or check internet connection."
+
+echo ""
+echo "1️⃣2️⃣ Alertmanager Cluster Messages"
+echo " - 'gossip not settled' is normal for startup, single-node setup can ignore."
+echo " - Cluster nodes use gossip protocol for communication."
+
+echo ""
+echo "1️⃣3️⃣ PromQL Usage"
+echo " - sum(rate(app_requests_total[5m])) → shows total request rate over last 5 minutes."
+echo " - Useful for alerting and Grafana visualizations."
+
+echo ""
+echo "1️⃣4️⃣ Folder Organization"
+echo " - Keep app, Prometheus, and alertmanager configs organized in separate folders."
+echo " - Docker Compose volume paths must match folder/file structure."
+
+echo ""
+echo "✅ End of Learnings"
+echo "========================================="
