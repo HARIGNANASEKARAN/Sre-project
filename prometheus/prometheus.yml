@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 5s #how often to scrape metrics
+
+rule_files:
+  - "alerts.rules.yml"
+
+scrape_configs:
+  - job_name: 'sre-app'
+    static_configs:
+      - targets: ['host.docker.internal:8000'] #if on mac/Windows
+      #use 'localhost:8000' if linux
+
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets: ['alertmanager:9093']

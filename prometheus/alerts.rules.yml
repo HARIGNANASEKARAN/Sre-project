@@ -1,0 +1,11 @@
+groups:
+  - name: sre_alerts
+    rules:
+      - alert: HighErrorRate
+        expr: increase(app_requests_total{status="500"}[1m]) > 5
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "High request rate detected"
+          description: "Too many requests in short time"

@@ -1,0 +1,11 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: "console"
+
+receivers:
+  - name: "console"
+    #sends alerts to prometheus UI console
+    webhook_configs:
+      - url: "http://localhost:9093"
