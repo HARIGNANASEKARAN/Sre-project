@@ -105,3 +105,98 @@ echo "Fix: Retry pull or check internet connection"
 echo ""
 echo "✅ End of error log"
 echo "========================================="
+
+
+#!/bin/bash
+# sre_full_errors.sh
+# Complete SRE Project - Troubleshooting Log (14 errors/issues)
+
+echo "========================================="
+echo "       SRE Project - Full Error Log"
+echo "========================================="
+
+echo ""
+echo "1️⃣ ERR_EMPTY_RESPONSE"
+echo "Occurred when accessing http://localhost:9090"
+echo "Cause: Prometheus container not running or wrong scrape target"
+echo "Fix: Make sure container is running and port 9090 is exposed"
+
+echo ""
+echo "2️⃣ Flask server only on 127.0.0.1 inside Docker"
+echo "Warning: Flask serving on 127.0.0.1 but Docker exposes 0.0.0.0"
+echo "Fix: Use host='0.0.0.0' in app.run()"
+
+echo ""
+echo "3️⃣ Prometheus YAML parsing error"
+echo "Error: cannot unmarshal !!str 'targets...' into struct"
+echo "Cause: Incorrect YAML format for targets or wrong indentation"
+echo "Fix: Use correct format: targets: ['host.docker.internal:8000'] (Mac/Windows) or ['localhost:8000'] (Linux)"
+
+echo ""
+echo "4️⃣ Docker Compose volume mount errors"
+echo "Error: not a directory: Are you trying to mount a directory onto a file (or vice-versa)?"
+echo "Cause: Host path/file mismatch in volumes"
+echo "Fix: Ensure host path exists and type matches (file vs folder)"
+
+echo ""
+echo "5️⃣ Grafana dashboard confusion"
+echo "Issue: Where is 'Add new panel'?"
+echo "Cause: Grafana UI terminology changed"
+echo "Fix: Dashboard -> Add Panel -> Add visualization -> Run Query"
+
+echo ""
+echo "6️⃣ Alertmanager unreachable"
+echo "Error: http://localhost:9093 cannot be reached"
+echo "Cause: Alertmanager container not running or port mapping incorrect"
+echo "Fix: Correct ports mapping and mount alertmanager.yml file"
+
+echo ""
+echo "7️⃣ Docker Compose YAML warnings"
+echo "Warning: 'version' attribute is obsolete"
+echo "Fix: Remove version attribute from docker-compose.yml"
+
+echo ""
+echo "8️⃣ Git push 403 Forbidden"
+echo "Error: Permission denied to GitHub repo"
+echo "Cause: Wrong account or missing Personal Access Token"
+echo "Fix: Use GitHub PAT or configure SSH key"
+
+echo ""
+echo "9️⃣ Docker image pull timeout"
+echo "Error: TLS handshake timeout when pulling Grafana image"
+echo "Cause: Network issue or slow registry connection"
+echo "Fix: Retry pull or check internet connection"
+
+echo ""
+echo "🔟 Multiple Docker run conflicts"
+echo "Error: Address already in use when starting multiple containers"
+echo "Cause: Multiple containers using same host ports"
+echo "Fix: Stop previous containers or map to different host ports"
+
+echo ""
+echo "1️⃣1️⃣ Prometheus alert rule syntax confusion"
+echo "Issue: Alerts not firing for increase(app_requests_total[1m]) > 5"
+echo "Cause: Too short interval or wrong expression"
+echo "Fix: Test with higher scrape/alert interval or check metric names"
+
+echo ""
+echo "1️⃣2️⃣ Alertmanager cluster gossip messages"
+echo "Message: 'gossip not settled / gossip settled'"
+echo "Cause: Normal Alertmanager cluster startup messages"
+echo "Note: Can be ignored for single-node setup"
+
+echo ""
+echo "1️⃣3️⃣ Prometheus metrics not increasing"
+echo "Issue: Visiting Flask / before Prometheus scrape showed zero metrics"
+echo "Cause: Prometheus scrape interval vs app requests timing"
+echo "Fix: Trigger app endpoint and refresh Prometheus targets"
+
+echo ""
+echo "1️⃣4️⃣ Docker Compose path issues with spaces (Windows)"
+echo "Error: Volume mount failed due to spaces in folder path"
+echo "Cause: Windows paths with spaces need quotes in docker-compose.yml"
+echo "Fix: Use quotes: './prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml'"
+
+echo ""
+echo "✅ End of full error log"
+echo "========================================="
