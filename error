@@ -1,0 +1,107 @@
+1. ERR_EMPTY_RESPONSE – http://localhost:9090
+        Cause: Prometheus container not reachable or app not exposing metrics.
+
+2. Flask server only on 127.0.0.1 inside Docker
+        Warning about serving on 127.0.0.1 vs 0.0.0.0
+        Fix: Use host="0.0.0.0" in Flask app.
+3. Prometheus YAML parsing error
+        cannot unmarshal !!str 'targets...'
+        Cause: Incorrect indentation or brackets in prometheus.yml.
+4. Docker Compose volume mount errors
+        Not a directory: Are you trying to mount a directory onto a file (or vice-versa)?
+        Cause: Path mismatch, file vs folder confusion.
+5. Grafana dashboard confusion
+        “Where is Add new panel?”
+        GUI terminology changed: use “Add panel” in new dashboard.
+6. Alertmanager unreachable
+        localhost:9093 cannot be reached
+        Cause: Container not running or port mapping incorrect.
+7. Docker Compose warnings
+        version is obsolete, will be ignored
+8. Git push 403 Forbidden
+        Permission denied to your GitHub repo
+        Cause: Wrong credentials or missing PAT.
+9. Docker image pull timeout
+        TLS handshake timeout when pulling Grafana image
+10. Multiple Docker run conflicts
+        Running multiple containers on same ports caused “address already in use”.
+11. Prometheus alert rule syntax confusion
+        Using increase(app_requests_total[1m]) > 5 incorrectly or testing too short interval caused no alerts to fire.
+12. Alertmanager cluster gossip messages
+        gossip not settled / gossip settled
+        Normal info but confusing for first-time users.
+13. Prometheus metrics not increasing
+        Visiting / in Flask app sometimes before Prometheus scrape caused zero metrics.
+14. Docker Compose mapping errors with spaces in folder path
+        D:\Devops practice\SRE project 1\prometheus\alertmanager.yml
+        Spaces in Windows paths can break volume mount if not quoted.
+
+
+# Bash format
+
+#!/bin/bash
+# sre_errors_today.sh
+# Summary of errors/issues encountered today in SRE project setup
+
+echo "========================================="
+echo "       SRE Project - Errors Log"
+echo "========================================="
+
+echo ""
+echo "1️⃣ ERR_EMPTY_RESPONSE (Flask app / Prometheus)"
+echo "Occurred when accessing http://localhost:9090"
+echo "Possible cause: Prometheus container not running or wrong scrape target."
+
+echo ""
+echo "2️⃣ Docker run / port issues"
+echo "Example:"
+echo "docker run -p 9090:9090 sre-app"
+echo "Warning: Flask serving on 127.0.0.1 but Docker exposes 0.0.0.0"
+echo "Fix: Use host=0.0.0.0 in Flask app"
+
+echo ""
+echo "3️⃣ Prometheus YAML parsing error"
+echo "Error:"
+echo "cannot unmarshal !!str 'targets...' into struct"
+echo "Cause: Incorrect YAML format for 'targets', missing brackets or wrong indentation"
+echo "Fix: Use targets: ['host.docker.internal:8000'] (Mac/Windows) or ['localhost:8000'] (Linux)"
+
+echo ""
+echo "4️⃣ Docker Compose mounting errors"
+echo "Error:"
+echo "not a directory: Are you trying to mount a directory onto a file (or vice-versa)?"
+echo "Cause: Wrong path or file vs folder mismatch in volumes"
+echo "Fix: Ensure host path exists and is the correct type (file for file, dir for dir)"
+
+echo ""
+echo "5️⃣ Grafana panel confusion"
+echo "Issue: Where to use 'Add new panel'"
+echo "Cause: GUI changed terminology; now use 'Add panel' in new dashboard → choose visualization → run query"
+
+echo ""
+echo "6️⃣ Prometheus Alertmanager connection issue"
+echo "Error: http://localhost:9093 cannot be reached"
+echo "Cause: Alertmanager container not running or mapped incorrectly in Docker Compose"
+echo "Fix: Correct ports mapping and use ./alertmanager.yml volume file"
+
+echo ""
+echo "7️⃣ Docker Compose YAML warnings"
+echo "Warning: 'version' attribute is obsolete and ignored"
+echo "Fix: Remove 'version: 3' from docker-compose.yml"
+
+echo ""
+echo "8️⃣ Git push 403 Forbidden"
+echo "Error:"
+echo "remote: Permission denied to your GitHub repo"
+echo "Cause: Wrong account / missing Personal Access Token"
+echo "Fix: Use HTTPS with GitHub PAT or configure SSH key for authentication"
+
+echo ""
+echo "9️⃣ TLS / network / handshake timeout"
+echo "Error: TLS handshake timeout when pulling Grafana image"
+echo "Cause: Network issue or slow Docker registry connection"
+echo "Fix: Retry pull or check internet connection"
+
+echo ""
+echo "✅ End of error log"
+echo "========================================="
